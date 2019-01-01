@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CalendarComponent} from 'angular-customizable-calendar/calendar';
 
 @Component({
@@ -6,58 +6,63 @@ import {CalendarComponent} from 'angular-customizable-calendar/calendar';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
-  viewTitle;
-  eventSource = [];
-  displayTime: Date;
+  public viewTitle;
+  public eventSource = [];
+  public displayTime: Date;
+  public calendar;
 
-  calendar = {
-    mode: 'month',
-    timeInterval: 30,
-    startingDayMonth: 1,
-    startingDayWeek: 1,
-    startHour: 0,
-    endHour: 24,
-    locale: 'fr',
-    formatDay: 'dd',
-    formatDayHeader: 'EEEE',
-    formatDayTitle: 'MM dd, yyyy',
-    formatWeekTitle: 'MMMM yyyy, \'Week\' w',
-    formatMonthTitle: 'MMMM yyyy',
-    formatWeekViewDayHeader: 'EEE d',
-    formatHourColumn: 'ha',
-    allDayLabel: 'hello',
-    noEventsLabel: 'hi',
-    currentDate: new Date(),
-    queryMode: 'local',
-    dateFormatter: {
-      formatMonthViewDay: function (date: Date) {
-        return date.getDate().toString();
-      },
-      formatMonthViewDayHeader: function (date: Date) {
-        return 'testMDH';
-      },
-      formatMonthViewTitle: function (date: Date) {
-        return 'testMT';
-      },
-      formatWeekViewDayHeader: function (date: Date) {
-        return 'testWDH';
-      },
-      formatWeekViewTitle: function (date: Date) {
-        return 'testWT';
-      },
-      formatWeekViewHourColumn: function (date: Date) {
-        return 'testWH';
-      },
-      formatDayViewHourColumn: function (date: Date) {
-        return 'testDH';
-      },
-      formatDayViewTitle: function (date: Date) {
-        return 'testDT';
+  ngOnInit() {
+    this.calendar = {
+      mode: 'month',
+      timeInterval: 30,
+      startingDayMonth: 1,
+      startingDayWeek: 1,
+      startHour: 0,
+      endHour: 24,
+      locale: 'fr',
+      formatDay: 'dd',
+      formatDayHeader: 'EEEE',
+      formatDayTitle: 'MM dd, yyyy',
+      formatWeekTitle: 'MMMM yyyy, \'Week\' w',
+      formatMonthTitle: 'MMMM yyyy',
+      formatWeekViewDayHeader: 'EEE d',
+      formatHourColumn: 'ha',
+      allDayLabel: 'hello',
+      noEventsLabel: 'hi',
+      currentDate: new Date(),
+      queryMode: 'local',
+      dateFormatter: {
+        formatMonthViewDay: function (date: Date) {
+          return date.getDate().toString();
+        },
+        formatMonthViewDayHeader: function (date: Date) {
+          return 'testMDH';
+        },
+        formatMonthViewTitle: function (date: Date) {
+          return 'testMT';
+        },
+        formatWeekViewDayHeader: function (date: Date) {
+          return 'testWDH';
+        },
+        formatWeekViewTitle: function (date: Date) {
+          return 'testWT';
+        },
+        formatWeekViewHourColumn: function (date: Date) {
+          return 'testWH';
+        },
+        formatDayViewHourColumn: function (date: Date) {
+          return 'testDH';
+        },
+        formatDayViewTitle: function (date: Date) {
+          return 'testDT';
+        }
       }
-    }
-  };
+    };
+
+    this.loadEvents();
+  }
 
   loadEvents() {
     this.eventSource = this.createRandomEvents();
@@ -141,5 +146,5 @@ export class AppComponent {
   markDisabled = (date: Date) => {
     const current = new Date();
     return date < current;
-  }
+  };
 }
